@@ -8,10 +8,9 @@ const client = new Client(databaseUrl);
 client.connect();
 
 client.query(`
-SELECT * FROM movies;
+SELECT name, year, genre FROM movies;
 `)
   .then(results => {
-    console.log(results.rows);
     fs.writeFileSync(
       'movie.json',
       JSON.stringify(results.rows, true, 2)

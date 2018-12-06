@@ -1,17 +1,8 @@
-const pg = require('pg');
+const client = require('../db-client');
 
-const Client = pg.Client;
-
-const databaseUrl = 'postgres://localhost:5432/movies';
-
-const client = new Client(databaseUrl);
-
-client.connect()
-  .then(() => {
-    return client.query(`
+client.query(`
         DROP TABLE IF EXISTS movie;
-        `);
-  })
+        `)
   .then(
     () => console.log('drop tables complete'),
     err => console.log(err)

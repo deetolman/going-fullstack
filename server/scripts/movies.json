@@ -22,11 +22,13 @@
   {
     "name": "Arrival",
     "year": "2016",
+    "genre": "Sci-Fi",
     "id": "xilLxPcCw"
   },
   {
     "name": "Citizen Kane",
     "year": "1941",
+    "genre": "Drama",
     "id": "4qRISIuyz"
   }
 ]
