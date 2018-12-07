@@ -13,7 +13,7 @@ const client = new Client(dbUrl);
 client.connect();
 
 
-app.get('/api/movies', (req, res) => {
+app.get('/scripts/movies', (req, res) => {
   client.query(`
     SELECT id, name FROM movie;
   `)
@@ -22,7 +22,7 @@ app.get('/api/movies', (req, res) => {
     });
 });
 
-app.get('/api/movies/:id', (req, res) => {
+app.get('/scripts/movies/:id', (req, res) => {
   client.query(`
   SELECT * FROM movie WHERE id = $1;
   `,
@@ -32,7 +32,7 @@ app.get('/api/movies/:id', (req, res) => {
     });
 });
 
-app.post('/api/movies', (req, res) => {
+app.post('/scripts/movies', (req, res) => {
   const body = req.body;
 
   client.query(`

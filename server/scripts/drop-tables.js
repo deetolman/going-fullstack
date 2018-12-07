@@ -1,6 +1,7 @@
 const client = require('../db-client');
 
 client.query(`
+        DROP TABLE IF EXISTS actor;
         DROP TABLE IF EXISTS movie;
         `)
   .then(

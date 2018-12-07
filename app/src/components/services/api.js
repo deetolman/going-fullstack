@@ -1,14 +1,14 @@
 export default {
   getMovies() {
-    return fetch('/api/movies')
+    return fetch('/scripts/movies')
       .then(response => response.json());
   },
   getMovie(id) {
-    return fetch(`/api/movies/${id}`)
+    return fetch(`/scripts/movies/${id}`)
       .then(response => response.json());
   },
   addMovie(movie) {
-    return fetch('/api/movies', {
+    return fetch('/scripts/movies', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
