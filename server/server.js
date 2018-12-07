@@ -7,31 +7,33 @@ app.use(morgan('dev'));
 
 app.use(express.json());
 
-app.get('/api/movies', (req, res) => {
+app.get('/api/actors', (req, res) => {
   client.query(`
-    SELECT id, name, year, genre
-    FROM movie;
+  SELECT id, actor, movie
+  FROM actor
+  ORDER BY movie ASC
   `)
     .then(result => {
       res.json(result.rows);
     });
 });
 
-app.get('/api/actors', (req, res))=> {
+app.get('/api/movies', (req, res) => {
   client.query(`
-  SELECT 
-    actor.id,
-    actor.actor,
-    actor.movie
-  FROM actor
-  JOIN movie
-  ON actor.actor_id = actor.id
-  ORDER BY movie ASC
+    SELECT 
+      movie.id, 
+      movie.name,
+      movie.year,
+      movie.genre
+    FROM movie
+    JOIN actor
+    ON movie.actor_id = actor.id
   `)
-  .then(result => {
-    res.json(result.rows);
-  });
-}
+    .then(result => {
+      res.json(result.rows);
+    });
+});
+
 
 app.get('/api/movies/:id', (req, res) => {
   client.query(`
@@ -47,11 +49,28 @@ app.post('/api/movies', (req, res) => {
   const body = req.body;
 
   client.query(`
-  INSERT INTO movie (name, year, genre)
+  INSERT INTO movie (name, actor_id, genre)
   VALUES($1, $2, $3)
-  RETURNING id, name, year, genre;
+  RETURNING id;
   `,
-  [body.name, body.year, body.genre])
+  [body.name, body.actorId, body.genre])
+    .then(result => {
+      const id = result.rows[0].id;
+
+      return client.query(`
+        SELECT 
+          movie.id,
+          movie.name,
+          movie.actor_id,
+          movie.year,
+          movie.genre
+        FROM movie
+        JOIN name
+        ON movie.actor_id = actor.id
+        WHERE movie.id = $1;
+      `,
+      [id]);
+    })
     .then(result => {
       res.json(result.rows[0]);
     });
