@@ -18,7 +18,7 @@ Promise.all(
             INSERT INTO movie (name, year, genre)
             SELECT 
             $1 as name, 
-            id as year
+            id as year,
             $2 as genre
           FROM actor
           WHERE movie = $3;
