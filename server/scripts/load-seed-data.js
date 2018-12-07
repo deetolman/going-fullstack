@@ -15,15 +15,16 @@ Promise.all(
     return Promise.all(
       movies.map(movie => {
         return client.query(`
-            INSERT INTO movie (name, year, genre)
+            INSERT INTO movie (name, actor_id, genre, year)
             SELECT 
             $1 as name, 
-            id as year,
-            $2 as genre
+            id as actor_id,
+            $2 as genre,
+            $3 as year
           FROM actor
-          WHERE movie = $3;
+          WHERE movie = $4;
             `,
-        [movie.name, movie.year, movie.genre]);
+        [movie.name, movie.genre, movie.year, movie.name]);
       })
     );
   })

@@ -1,26 +1,37 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const pg = require('pg');
+const client = require('./db-client');
 
 app.use(morgan('dev'));
 
 app.use(express.json());
 
-const Client = pg.Client;
-const dbUrl = 'postgres://localhost:5432/movies';
-const client = new Client(dbUrl);
-client.connect();
-
-
 app.get('/api/movies', (req, res) => {
   client.query(`
-    SELECT id, name FROM movie;
+    SELECT id, name, year, genre
+    FROM movie;
   `)
     .then(result => {
       res.json(result.rows);
     });
 });
+
+app.get('/api/actors', (req, res))=> {
+  client.query(`
+  SELECT 
+    actor.id,
+    actor.actor,
+    actor.movie
+  FROM actor
+  JOIN movie
+  ON actor.actor_id = actor.id
+  ORDER BY movie ASC
+  `)
+  .then(result => {
+    res.json(result.rows);
+  });
+}
 
 app.get('/api/movies/:id', (req, res) => {
   client.query(`
