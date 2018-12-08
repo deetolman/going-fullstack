@@ -8,7 +8,7 @@ const client = new Client(databaseUrl);
 client.connect();
 
 client.query(`
-SELECT name, year, genre FROM movies;
+SELECT name, year, genre FROM movie;
 `)
   .then(results => {
     fs.writeFileSync(

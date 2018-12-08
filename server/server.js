@@ -36,7 +36,6 @@ app.get('/api/movies', (req, res) => {
     });
 });
 
-
 app.get('/api/movies/:id', (req, res) => {
   client.query(`
   SELECT * FROM movie WHERE id = $1;
@@ -44,6 +43,16 @@ app.get('/api/movies/:id', (req, res) => {
   [req.params.id])
     .then(result => {
       res.json(result.rows[0]);
+    });
+});
+
+app.delete('/api/movies/:id', (req, res) => {
+  client.query(`
+  DELETE FROM movie WHERE id =$1;
+  `,
+  [req.params.id])
+    .then(result => {
+      res.json({ removed: result.rowCount === 1 });
     });
 });
 

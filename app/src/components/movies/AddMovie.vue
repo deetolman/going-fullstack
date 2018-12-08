@@ -2,16 +2,16 @@
     <form @submit.prevent="handleSubmit">
       <p>
         <label> Movie Name
-        <input v-model="movie.name" require>
+        <input v-model="movie.name" required>
         </label>
       </p>
       <p>
         <label> Year
-        <input v-model="movie.year" require>
+        <input v-model="movie.year" required>
         </label>
       </p>
         <label> Genre
-        <input v-model="movie.genre" require>
+        <input v-model="movie.genre" required>
         <button>Add</button>
         </label>
     </form>

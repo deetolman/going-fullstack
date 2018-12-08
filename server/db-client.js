@@ -1,7 +1,5 @@
 const pg = require('pg');
-
 const DATABASE_URL = 'postgres://localhost:5432/movies';
-
 const Client = pg.Client;
 
 const client = new Client(DATABASE_URL);

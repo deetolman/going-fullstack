@@ -1,5 +1,7 @@
 <template>
     <section v-if="movie">
+      <RouterLink :to="`/movies`">Back</RouterLink>
+      <button @click="handleDelete">Delete</button>
         <h2>{{movie.name}}</h2>
         <p>
             {{movie.year}}
@@ -24,6 +26,14 @@ export default {
       .then(movie => {
         this.movie = movie;
       });
+  },
+  methods: {
+    handleDelete() {
+      api.deleteMovie(this.movie.id)
+        .then(() => {
+          this.$router.push('/movies');
+        });
+    }
   }
 };
 </script>

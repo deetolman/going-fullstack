@@ -17,4 +17,10 @@ export default {
     })
       .then(response => response.json());
   },
+  deleteMovie(id) {
+    return fetch(`/api/movies/${id}`, {
+      method: 'DELETE'
+    })
+      .then(response => response.json());
+  }
 };
