@@ -22,5 +22,16 @@ export default {
       method: 'DELETE'
     })
       .then(response => response.json());
-  }
+  },
+  updateMovie(movie, id) {
+    return fetch(`api/movies/${id}`, {
+      method: 'UPDATE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(movie)
+    })
+      .then(response => response.json());
+  },
+
 };
